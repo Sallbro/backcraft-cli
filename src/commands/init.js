@@ -33,6 +33,7 @@ export async function initProject(name) {
     response["createdAt"] = new Date().toISOString();
 
     // Save config
+    fs.mkdirSync(`${response.projectName}`, { recursive: true });
     fs.writeFileSync(`${response.projectName}/backcraft.json`, JSON.stringify(response, null, 2));
 
     // get file extension
