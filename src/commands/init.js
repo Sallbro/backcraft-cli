@@ -33,26 +33,10 @@ export async function initProject(name) {
     response["createdAt"] = new Date().toISOString();
 
     // Save config
-    fs.writeFileSync("backcraft.json", JSON.stringify(response, null, 2));
+    fs.writeFileSync(`${response.projectName}/backcraft.json`, JSON.stringify(response, null, 2));
 
     // get file extension
     const fileExtension = response.programmingLanguage === "typescript" ? "ts" : "js";
-
-    //check remote templates
-    const templates = await listTemplates();
-    console.log("templates", templates);
-    const template = await getTemplate("app", name + "." + fileExtension + ".json");
-    console.log("template:", template);
-
-    // // check module exist
-    // const projectDir = path.resolve(process.cwd(), "registry/app");
-    // const check_module_exist = await checkModuleExist(name, projectDir, response.programmingLanguage === "typescript" ? "ts" : "js");
-    // if (!check_module_exist) {
-    //     printModule(projectDir, response.programmingLanguage === "typescript" ? "ts" : "js");
-    //     process.exit(1);
-    // }
-
-    // console.log("check_module_exist:", check_module_exist);
 
     try {
         //check registry exists

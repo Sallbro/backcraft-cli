@@ -33,6 +33,16 @@ export function printRegistry(type = "") {
 
 export function printHelpCommands() {
 
-   console.log("backcraft --help");
+    console.log(`
+           Commands, 🛠️
+
+              npx backcraft@latest init
+              npx backcraft@latest init --name=registry-name
+              npx backcraft@latest add registry-name
+              npx backcraft@latest list
+              npx backcraft@latest list app
+              npx backcraft@latest list components
+              npx backcraft@latest custom "path/to/file.json"
+                  `);
 
 }

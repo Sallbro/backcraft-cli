@@ -38,7 +38,6 @@ export async function installRegistryDependencies(registryDependencies = [], fil
 }
 
 export async function handleAllDependencies(json, fileExtension = "js", targetDir = process.cwd()) {
-    console.log("json targetDir:", targetDir);
     execSync("npm init -y", { cwd: targetDir })
     await installRegistryDependencies(json.registryDependencies || [], fileExtension, targetDir);
     await installDependencies(json.dependencies || [], false, targetDir);

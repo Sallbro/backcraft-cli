@@ -1,6 +1,5 @@
 import { promises as fs } from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import { handleAllDependencies } from "../utils/handle-dependencies.js";
 import { projectConfig } from "../utils/project-config.js";
 import { getTemplate } from "backcraft-registry";
