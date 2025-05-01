@@ -3,10 +3,10 @@ import { addModule } from "./commands/add.js";
 import { initProject } from './commands/init.js';
 import { listModules } from './commands/list.js';
 import { customModule } from './commands/custom.js';
+import { printHelpCommands } from "./utils/print-console.js";
 
 const command = process.argv[2];
 const arg = process.argv[3];
-console.log("arg:", arg);
 export async function main() {
   switch (command) {
     case 'init':
@@ -53,10 +53,14 @@ export async function main() {
       }
       await listModules("all");
       break;
-    case 'generate' || 'g':
-      console.log("generate");
     case 'custom':
       await customModule(arg);
+      break;
+    case '--help':
+    case '-h':
+    case 'help':
+    case '-help':
+      printHelpCommands();
       break;
     default:
       console.log(`

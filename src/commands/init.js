@@ -1,14 +1,9 @@
 import { promises as promisfs } from "fs";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import { handleAllDependencies } from "../utils/handle-dependencies.js";
-import { projectConfig } from "../utils/project-config.js";
-import { checkModuleExist } from "../utils/check-module.js";
 import prompts from "prompts";
-import { printModule } from "../utils/print-module.js";
 import { listTemplates, getTemplate } from "backcraft-registry";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export async function initProject(name) {
     if (!name) {
@@ -36,6 +31,7 @@ export async function initProject(name) {
     ]);
     response["framework"] = "express";
     response["createdAt"] = new Date().toISOString();
+
     // Save config
     fs.writeFileSync("backcraft.json", JSON.stringify(response, null, 2));
 
@@ -59,30 +55,14 @@ export async function initProject(name) {
     // console.log("check_module_exist:", check_module_exist);
 
     try {
-        //check remote templates
-        const [templatesList, templatesListError] = await listTemplates();
-        if (templatesListError) {
-            console.log("list ka err");
-            console.log(templatesListError);
-            return;
-        }
-        // console.log("templates", templates);
+        //check registry exists
         const [fetchRegistry, errorFetchRegistry] = await getTemplate("app", name + "." + fileExtension + ".json");
         if (errorFetchRegistry) {
-            console.log("template ka err");
             console.log(errorFetchRegistry);
             return;
         }
-        console.log("sahi chal araha hai");
-        // console.log("template:", template);
 
-        // const registryPath = path.resolve(__dirname, "../../registry/app", `${name}.${fileExtension}.json`);
-
-        // const registryData = JSON.parse(await promisfs.readFile(registryPath, "utf-8"));
-
-        // const registryData = JSON.parse(await promisfs.readFile(template, "utf-8"));
         const registryData = JSON.parse(fetchRegistry);
-console.log("registryData2:", registryData);
 
         console.log(`📁 Initializing ${response.programmingLanguage} project: ${name}...`);
 
