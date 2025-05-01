@@ -1,0 +1,30 @@
+{
+  "name": "mysql-setup",
+  "title": "mysql-setup Module",
+  "description": "mysql-setup",
+  "language": "javascript",
+  "dependencies": ["mysql2", "dotenv"],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "config/mysql.js",
+      "content": "const mysql = require('mysql2');\nconst dotenv = require('dotenv');\ndotenv.config();\n\nconst connection = mysql.createConnection({\n  host: process.env.MYSQL_HOST,\n  user: process.env.MYSQL_USER,\n  password: process.env.MYSQL_PASSWORD,\n  database: process.env.MYSQL_DATABASE\n});\n\nconnection.connect(err => {\n  if (err) {\n    console.error('error connecting to MySQL:', err);\n    process.exit(1);\n  }\n  console.log('MySQL connected');\n});\n\nmodule.exports = connection;"
+    },
+    {
+      "path": ".env",
+      "content": "MYSQL_HOST=localhost\nMYSQL_USER=root\nMYSQL_PASSWORD=password\nMYSQL_DATABASE=myapp"
+    },
+    {
+      "path": "models/sampleModel.js",
+      "content": "const connection = require('../config/mysql');\n\nconst createSampleTable = () => {\n  const createTableQuery = `CREATE TABLE IF NOT EXISTS sample (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    name VARCHAR(255) NOT NULL,\n    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n  )`;\n\n  connection.query(createTableQuery, (err, results) => {\n    if (err) {\n      console.error('Error creating table:', err);\n      return;\n    }\n    console.log('Sample table created or already exists');\n  });\n};\n\ncreateSampleTable();"
+    },
+    {
+      "path": "app.js",
+      "content": "const express = require('express');\nconst dotenv = require('dotenv');\nconst connection = require('./config/mysql');\n\ndotenv.config();\n\nconst app = express();\napp.use(express.json());\n\napp.get('/', (req, res) => res.send('MySQL Setup Done'));\n\nconst PORT = process.env.PORT || 3000;\napp.listen(PORT, () => console.log(`Server running on port ${PORT}`));"
+    },
+    {
+      "path": ".gitignore",
+      "content": "node_modules/\n.env"
+    }
+  ]
+}

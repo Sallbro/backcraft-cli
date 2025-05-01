@@ -1,0 +1,20 @@
+{
+    "name": "auth",
+    "type": "backend:module",
+    "title": "Authentication Module",
+    "description": "JWT, OAuth, Sessions, RBAC prebuilt setup",
+    "registryDependencies": [],
+    "dependencies": ["jsonwebtoken","logger"],
+    "devDependencies": ["logger"],
+    "files": [
+      {
+        "path": "src/modules/auth/controller.ts",
+        "content": "export const login = (req, res) => { /* login logic */ };\nexport const register = (req, res) => { /* register logic */ };"
+      },
+      {
+        "path": "src/modules/auth/service.ts",
+        "content": "export const generateToken = (user) => { /* token logic */ };"
+      }
+    ]
+  }
+  

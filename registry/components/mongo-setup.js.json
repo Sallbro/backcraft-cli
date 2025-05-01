@@ -1,0 +1,30 @@
+{
+  "name": "mongo-setup",
+  "title": "mongo-setup Module",
+  "description": "mongo-setup",
+  "language": "javascript",
+  "dependencies": ["mongoose", "dotenv"],
+  "devDependencies": [],
+  "files": [
+    {
+      "path": "config/mongodb.js",
+      "content": "const mongoose = require('mongoose');\nconst dotenv = require('dotenv');\ndotenv.config();\n\nconst connectMongoDB = async () => {\n  try {\n    await mongoose.connect(process.env.MONGO_URI, {\n      useNewUrlParser: true,\n      useUnifiedTopology: true\n    });\n    console.log('MongoDB connected');\n  } catch (err) {\n    console.error('MongoDB connection error:', err);\n    process.exit(1);\n  }\n};\n\nmodule.exports = connectMongoDB;"
+    },
+    {
+      "path": ".env",
+      "content": "MONGO_URI=mongodb://localhost:27017/myapp"
+    },
+    {
+      "path": "models/sampleModel.js",
+      "content": "const mongoose = require('mongoose');\n\nconst sampleSchema = new mongoose.Schema({\n  name: { type: String, required: true },\n  createdAt: { type: Date, default: Date.now }\n});\n\nmodule.exports = mongoose.model('Sample', sampleSchema);"
+    },
+    {
+      "path": "app.js",
+      "content": "const express = require('express');\nconst dotenv = require('dotenv');\nconst connectMongoDB = require('./config/mongodb');\n\ndotenv.config();\nconnectMongoDB();\n\nconst app = express();\napp.use(express.json());\n\napp.get('/', (req, res) => res.send('MongoDB Setup Done'));\n\nconst PORT = process.env.PORT || 3000;\napp.listen(PORT, () => console.log(`Server running on port ${PORT}`));"
+    },
+    {
+      "path": ".gitignore",
+      "content": "node_modules/\n.env"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+    "name": "user-management",
+    "language": "typescript",
+    "dependencies": ["express", "dotenv"],
+    "devDependencies": ["typescript", "ts-node-dev", "@types/node", "@types/express"],
+    "registryDependencies": [],
+    "files": [
+      {
+        "path": "app.ts",
+        "content": "import express, { Application } from 'express';\nimport dotenv from 'dotenv';\nimport userRoutes from './routes/user.routes';\n\ndotenv.config();\nconst app: Application = express();\nconst port = process.env.PORT || 3000;\n\napp.use(express.json());\n\napp.use('/api/users', userRoutes);\n\napp.listen(port, () => {\n  console.log(`🚀 User Management Server running on port ${port}`);\n});"
+      },
+      {
+        "path": "types/user.type.ts",
+        "content": "export interface User {\n  id: number;\n  name: string;\n  email: string;\n  role: 'admin' | 'user';\n}"
+      },
+      {
+        "path": "controllers/user.controller.ts",
+        "content": "import { Request, Response } from 'express';\nimport { User } from '../types/user.type';\n\nexport const getUsers = (req: Request, res: Response) => {\n  const users: User[] = [\n    { id: 1, name: 'Admin', email: 'admin@example.com', role: 'admin' },\n  ];\n  res.json(users);\n};\n\nexport const createUser = (req: Request, res: Response) => {\n  const { name, email, role } = req.body;\n  const newUser: User = { id: Date.now(), name, email, role };\n  res.status(201).json(newUser);\n};"
+      },
+      {
+        "path": "routes/user.routes.ts",
+        "content": "import { Router } from 'express';\nimport { getUsers, createUser } from '../controllers/user.controller';\n\nconst router = Router();\n\nrouter.get('/', getUsers);\nrouter.post('/', createUser);\n\nexport default router;"
+      },
+      {
+        "path": ".env",
+        "content": "PORT=3000"
+      },
+      {
+        "path": ".gitignore",
+        "content": "node_modules/\ndist/\n.env"
+      },
+      {
+        "path": "tsconfig.json",
+        "content": "{\n  \"compilerOptions\": {\n    \"target\": \"ES6\",\n    \"module\": \"commonjs\",\n    \"outDir\": \"./dist\",\n    \"rootDir\": \"./\",\n    \"strict\": true,\n    \"esModuleInterop\": true\n  }\n}"
+      }
+    ]
+  }
+  

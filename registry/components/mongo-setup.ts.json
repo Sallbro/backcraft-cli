@@ -1,0 +1,30 @@
+{
+  "name": "mongodb-setup-ts",
+  "title": "mongo-setup Module",
+  "description": "mongo-setup",
+  "language": "typescript",
+  "dependencies": ["mongoose", "dotenv"],
+  "devDependencies": ["@types/mongoose"],
+  "files": [
+    {
+      "path": "config/mongodb.ts",
+      "content": "import mongoose from 'mongoose';\nimport dotenv from 'dotenv';\ndotenv.config();\n\nconst connectDB = async () => {\n  try {\n    await mongoose.connect(process.env.MONGO_URI as string, {\n      useNewUrlParser: true,\n      useUnifiedTopology: true,\n    });\n    console.log('MongoDB connected');\n  } catch (err) {\n    console.error('Error connecting to MongoDB:', err);\n    process.exit(1);\n  }\n};\n\nexport default connectDB;"
+    },
+    {
+      "path": ".env",
+      "content": "MONGO_URI=mongodb://localhost:27017/myapp"
+    },
+    {
+      "path": "models/sampleModel.ts",
+      "content": "import mongoose, { Schema, Document } from 'mongoose';\n\ninterface ISample extends Document {\n  name: string;\n  createdAt: Date;\n}\n\nconst SampleSchema: Schema = new Schema({\n  name: { type: String, required: true },\n  createdAt: { type: Date, default: Date.now },\n});\n\nconst Sample = mongoose.model<ISample>('Sample', SampleSchema);\n\nexport default Sample;"
+    },
+    {
+      "path": "app.ts",
+      "content": "import express from 'express';\nimport dotenv from 'dotenv';\nimport connectDB from './config/mongodb';\ndotenv.config();\n\nconst app = express();\napp.use(express.json());\n\nconnectDB();\n\napp.get('/', (req, res) => res.send('MongoDB Setup Done'));\n\nconst PORT = process.env.PORT || 3000;\napp.listen(PORT, () => console.log(`Server running on port ${PORT}`));"
+    },
+    {
+      "path": ".gitignore",
+      "content": "node_modules/\n.env\n*.js\n*.tsbuildinfo"
+    }
+  ]
+}
