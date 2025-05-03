@@ -17,12 +17,12 @@
 
 ## 🚀 Commands
 
-- npx backcraft@latest init
-- npx backcraft@latest init --name=registry-name
-- npx backcraft@latest add registry-name
-- npx backcraft@latest list
-- npx backcraft@latest list app
-- npx backcraft@latest list components
+- npx backcraft-cli@latest init
+- npx backcraft-cli@latest init --name=registry-name
+- npx backcraft-cli@latest add registry-name
+- npx backcraft-cli@latest list
+- npx backcraft-cli@latest list app
+- npx backcraft-cli@latest list components
 
 ---
 

@@ -7,14 +7,19 @@
     "backcraft": "bin/backcraft.js"
   },
   "dependencies": {
-    "backcraft-registry": "^1.0.0",
+    "backcraft-registry": "^1.0.2",
     "prompts": "^2.4.2"
   },
   "scripts": {
     "start": "node ./bin/backcraft.js"
   },
   "type": "module",
-  "keywords": [],
+  "keywords": [
+    "cli",
+    "backcraft",
+    "api",
+    "registry"
+  ],
   "author": "",
   "license": "ISC"
 }

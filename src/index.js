@@ -63,14 +63,6 @@ export async function main() {
       printHelpCommands();
       break;
     default:
-      console.log(`
-Backcraft CLI 🛠️
-
-Usage:
-  npx backcraft@latest init
-  npx backcraft@latest list
-  npx backcraft@latest add "component-name"
-  npx backcraft@latest custom ./path/to/module.json
-      `);
+      printHelpCommands();
   }
 }
