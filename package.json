@@ -1,6 +1,6 @@
 {
   "name": "backcraft-cli",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "CLI tool for backend project setup",
   "main": "./bin/backcraft.js",
   "bin": {
