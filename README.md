@@ -1,3 +1,16 @@
+## 🔗 Links
+- ## github repo
+cli - https://github.com/Sallbro/backcraft-cli
+
+repository - https://github.com/Sallbro/backcraft-repository
+
+web - https://github.com/Sallbro/backcraft-web
+
+- ## npm package
+cli - https://www.npmjs.com/package/backcraft-cli
+
+repository - https://www.npmjs.com/package/backcraft-registry
+
 # 🛠️ backcraft-cli
 
 **backcraft-cli** is a command-line tool that helps you quickly scaffold backend projects (`apps`) and integrate modular features (`components`) using predefined JSON templates stored in a separate registry (`backcraft-registry`).
