@@ -4,6 +4,7 @@ import { initProject } from './commands/init.js';
 import { listModules } from './commands/list.js';
 import { customModule } from './commands/custom.js';
 import { printHelpCommands } from "./utils/print-console.js";
+import { generateJson } from "./commands/generate.js";
 
 const command = process.argv[2];
 const arg = process.argv[3];
@@ -56,6 +57,54 @@ export async function main() {
     case 'custom':
       await customModule(arg);
       break;
+    case 'generate':
+    case 'g':
+      if (arg) {
+        if (arg == "json") {
+          let type = "app";
+          let name = "backcraft-generate";
+          if (process.argv[4]) {
+            const [key, value] = process.argv[4].substring(2).split("=");
+            if(key == "type"){
+              if(value == "app" || value == "component"){
+                type = value;
+              }
+              else{
+                console.log("Invalid argument, it must be --type=app or --type=component");
+                break;
+              }
+            }
+            if(key == "name"){
+                name = value;
+            }
+          }
+          if (process.argv[5]) {
+            const [key, value] = process.argv[5].substring(2).split("=");
+            if(key == "type"){
+              if(value == "app" || value == "component"){
+                type = value;
+              }
+              else{
+                console.log("Invalid argument, it must be --type=app or --type=component");
+                break;
+              }
+            }
+            if(key == "name"){
+                name = value;
+            }
+          }
+          await generateJson(type, name);
+          break;
+        }
+        else {
+          console.log("Invalid argument, it must be json");
+          break;
+        }
+      }
+      else {
+        console.log("Please provide an argument");
+        break;
+      }
     case '--help':
     case '-h':
     case 'help':
